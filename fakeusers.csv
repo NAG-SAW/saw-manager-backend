@@ -1,0 +1,13 @@
+User_ID,Name,Passwort_Authentik,Passwort_WiFi,Email,Rolle,Gruppe,Geräte,RFID_Chip
+1,Anna Müller,Secure#Pass2024,WiFi@Net789,anna.mueller@example.com,Member,"Bar, NAG","Laptop, Keycard",0x1A2B3C4D5E6F
+2,Klaus Weber,P@ssw0rd_Auth!,WifiKey2024#,klaus.weber@example.com,Member,"E-Wash, Bar","Smartphone, Keycard",0xA1B2C3D4E5F6
+3,Maria Schmidt,MyP@ssAut123,SecureWiFi456,maria.schmidt@example.com,Honorary Member,"NAG","Tablet",0x7F8E9D0C1B2A
+4,Thomas Bauer,Aut#Pass2024,WiFi_Password99,thomas.bauer@example.com,No Member,"Bar","Keycard",0x3D4E5F6A7B8C
+5,Petra Fischer,SecureA!Pass24,WifiNet#2024,petra.fischer@example.com,Member,"E-Wash, NAG","Laptop, Keycard, Smartphone",0x9C8B7A6F5E4D
+6,Hans Schneider,P@ss!Word2024,WiFi@Secure#,hans.schneider@example.com,Member,"Bar, E-Wash","Keycard",0x5E6D7C8B9A01
+7,Julia Wagner,Auth!Pass2024#,WiFiSecure#99,julia.wagner@example.com,Honorary Member,"NAG, Bar","Smartphone, Keycard",0xF0E1D2C3B4A5
+8,Michael Hoffmann,H3ll0W0rld!,WiFiKey#2024,michael.hoffmann@example.com,Resigned,"Bar","Keycard (deactivated)",0x2B3C4D5E6F7A
+9,Sandra Meyer,MySecureP@ss12,WifiAuth2024#,sandra.meyer@example.com,Member,"E-Wash","Laptop, Keycard",0x8A9B0C1D2E3F
+10,Christian Voight,P@ssw0rd!Auth,WiFi@Pass24,christian.voight@example.com,No Member,"Bar, NAG","Tablet, Keycard",0x4D5E6F7A8B9C
+11,Barbara Schulz,SecAuth!2024,WiFi#Secure99,barbara.schulz@example.com,Member,"NAG","Smartphone",0xC1D2E3F4A5B6
+12,Werner Richter,A!utPass2024#,WiFiNAG#2024,werner.richter@example.com,Member,"Bar, E-Wash, NAG","Laptop, Keycard",0x7A8B9C0D1E2F
