@@ -19,8 +19,7 @@ Wir brauchen wahrscheinlich auch eine Datenbank für die Kontodaten, da wir dies
   - [ ] Sportchip
   - [ ] Evtl. Netzwerk Infos (falls wir das nicht immer auf unify und hier machen möchten)
   - [ ] WiFi passtwort anpassen?
-- [ ] Authentik permission checks
-  - [ ] Hierfür soll wohl Authlib ganz gut sein
+- [ ] Authentik permission checks (Authlib soll wohl ganz gut sein)
 
 
 ## Was wir benutzen für die API
