@@ -7,19 +7,11 @@ Wir brauchen wahrscheinlich auch eine Datenbank für die Kontodaten, da wir dies
 
 ## Anforderungen:
 
-- [ ] Schnittstelle für requesten von Userdaten
-  - [ ] Benutzername
-  - [ ] Vor- und Nachname
-  - [ ] E-Mail Adresse
-  - [ ] Kontodaten
-  - [ ] Sportchip
-  - [ ] Evtl. Netzwerk Infos (generierte passwörter für SAW Legacy)
+- [X] Schnittstelle für requesten von Userdaten
+  - [X] Filtern nach bestimmten attributes
+- [] Schnittstelle für requesten von Userdaten für spezifischen User
 - [ ] Schnitstellen für das updaten von Daten
-  - [ ] Kontodaten
-  - [ ] Sportchip
-  - [ ] Evtl. Netzwerk Infos (falls wir das nicht immer auf unify und hier machen möchten)
-  - [ ] WiFi passtwort anpassen?
-- [ ] Authentik permission checks (Authlib soll wohl ganz gut sein)
+- [x] Authentik permission checks (Authlib soll wohl ganz gut sein)
 
 
 ## Was wir benutzen für die API
@@ -27,3 +19,4 @@ Wir brauchen wahrscheinlich auch eine Datenbank für die Kontodaten, da wir dies
 * Python
 * FastAPI[https://github.com/fastapi/fastapi]
 * Authlib[https://docs.authlib.org/en/latest/client/fastapi.html]
+* itsdangerous ist auch in den requirements, weil es von SessionMiddleware (included in Authlib glaube ich) benutzt wird für signing und verification [https://pypi.org/project/itsdangerous/]
