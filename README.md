@@ -9,7 +9,7 @@ Wir brauchen wahrscheinlich auch eine Datenbank für die Kontodaten, da wir dies
 
 - [X] Schnittstelle für requesten von Userdaten
   - [X] Filtern nach bestimmten attributes
-- [] Schnittstelle für requesten von Userdaten für spezifischen User
+- [ ] Schnittstelle für requesten von Userdaten für spezifischen User
 - [ ] Schnitstellen für das updaten von Daten
 - [x] Authentik permission checks (Authlib soll wohl ganz gut sein)
 
