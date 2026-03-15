@@ -1,14 +1,15 @@
-from http.client import HTTPException
+import json
+from typing import Optional
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
 
 from auth import getOAuth, getSessionSecret
-from dataprocessing.dataclasses import User
-from dataprocessing.dataprocessing import getAllUsers
+from dataprocessing.user_dataclasses import User
 
 app = FastAPI()
+AUTHENTIK_URL = "auth.saw.rwth-aachen.de"
 
 # Der secret key hier ist um den session cookie mit dem frontend zu verifizieren. 
 app.add_middleware(SessionMiddleware, secret_key=getSessionSecret())
@@ -33,6 +34,17 @@ async def callback(request: Request):
     return RedirectResponse(url=request.url_for("getUsers"))
 
 @app.get("/users")
-async def getUsers(request: Request, attributes: str) -> list[User]:   
-    token = request.session.get("access_token") 
-    return getAllUsers(token, attributes).json()
+async def getUsers(request: Request, attributes: Optional[str] = ''):   
+    token = request.session.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Missing access token")
+        
+    params = {"attributes": attributes} if attributes else {}
+
+    resp = await getOAuth().authentik.get(
+        f"https://{AUTHENTIK_URL}/api/v3/core/users/",
+        params=params,
+        token={"access_token": token, "token_type": "Bearer"}
+    )
+
+    return resp.json()["results"]
