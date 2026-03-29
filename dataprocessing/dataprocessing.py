@@ -38,7 +38,7 @@ def getProcessedUsers(token: str, attributes: Optional[str]) -> list[User]:
                 page += 1
 
             except ApiException as e:
-                print(f"Request failed: {e}")
-                break
+                if(e.status):
+                    raise HTTPException(status_code=e.status, detail=str(e))
 
     return all_users
