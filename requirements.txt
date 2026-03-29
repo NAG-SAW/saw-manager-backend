@@ -2,3 +2,4 @@ fastapi[standard]
 pandas
 authlib
 itsdangerous
+authentik_client
