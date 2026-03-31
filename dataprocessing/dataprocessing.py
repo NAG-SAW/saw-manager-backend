@@ -25,11 +25,11 @@ def getProcessedUsers(token: str, attributes: Optional[str]) -> list[User]:
         ## Iterate over all available pages of users (authentik maxes out at 100 users page_size)
         while True:
             try:
-                kwargs = {"page": page, "page_size": 500, 'attributes': ''}
-                if attributes:
-                    kwargs["attributes"] = attributes
-
-                response = api.core_users_list(**kwargs)
+                response = api.core_users_list(
+                    page=page,
+                    page_size=500,
+                    attributes=attributes if attributes else None,
+                )
 
                 all_users.extend([user for user in response.results])
 
@@ -42,3 +42,22 @@ def getProcessedUsers(token: str, attributes: Optional[str]) -> list[User]:
                     raise HTTPException(status_code=e.status, detail=str(e))
 
     return all_users
+
+def getUserByPK(token: str, pk: int) -> User:
+    configuration = authentik_client.Configuration(
+        host=AUTHENTIK_URL,
+        access_token=token,
+    )
+
+    with authentik_client.ApiClient(configuration) as api_client:
+        api = authentik_client.CoreApi(api_client)
+        try:
+            return api.core_users_retrieve(id=pk)
+        except ApiException as e:
+            if e.status:
+                if e.status == 404:
+                    raise HTTPException(status_code=404, detail="User not found")
+                if e.status in (401, 403):
+                    raise HTTPException(status_code=401, detail="Token invalid/expired")
+                raise HTTPException(status_code=e.status, detail=str(e))
+        

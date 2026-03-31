@@ -9,7 +9,7 @@ from fastapi.responses import RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
 
 from auth import getOAuth, getSessionSecret
-from dataprocessing.dataprocessing import getProcessedUsers
+from dataprocessing.dataprocessing import getProcessedUsers, getUserByPK
 
 app = FastAPI()
 
@@ -43,6 +43,12 @@ async def callback(request: Request):
 async def getUsers(request: Request , attributes: Optional[str] = ''):   
     token = requireToken(request)
     users = getProcessedUsers(token, attributes)
+    return users
+
+@app.get("/users/{pk}", description="Returns a user based on identifier pk (todo: based on the current users view permissions)", response_model= User, response_model_exclude={"avatar", "uid", "uuid", "type", "path", "groups", "roles"})
+async def getUser(request: Request , pk: int):   
+    token = requireToken(request)
+    users = getUserByPK(token, pk)
     return users
 
 
