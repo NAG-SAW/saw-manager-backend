@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Any, Optional
 
 import authentik_client
+from authentik_client import UserRequest
 from authentik_client.exceptions import ApiException
 from authentik_client.models.user import User
 from fastapi import HTTPException
@@ -43,7 +44,7 @@ def getProcessedUsers(token: str, attributes: Optional[str]) -> list[User]:
 
     return all_users
 
-def getUserByPK(token: str, pk: int) -> User:
+def getUserByPK(token: str, pk: int) -> User | None:
     configuration = authentik_client.Configuration(
         host=AUTHENTIK_URL,
         access_token=token,
@@ -60,4 +61,28 @@ def getUserByPK(token: str, pk: int) -> User:
                 if e.status in (401, 403):
                     raise HTTPException(status_code=401, detail="Token invalid/expired")
                 raise HTTPException(status_code=e.status, detail=str(e))
-        
+            
+def setUserByPK(token: str, pk: int, attributes: dict[str, Any]) -> User | None:
+    configuration = authentik_client.Configuration(
+        host=AUTHENTIK_URL,
+        access_token=token,
+    )
+    user = getUserByPK(token,pk)
+    if(user):
+        updateUserAttributes(user, attributes)
+        with authentik_client.ApiClient(configuration) as api_client:
+            api = authentik_client.CoreApi(api_client)
+            try:
+                return api.core_users_update(id=pk, user_request= UserRequest(**user.model_dump()))
+            except ApiException as e:
+                if e.status:
+                    if e.status == 404:
+                        raise HTTPException(status_code=404, detail="User not found")
+                    if e.status in (401, 403):
+                        raise HTTPException(status_code=401, detail="Token invalid/expired")
+                    raise HTTPException(status_code=e.status, detail=str(e))
+                
+
+def updateUserAttributes(user: User, attributes: dict[str, Any]):
+    user.attributes = attributes
+            
